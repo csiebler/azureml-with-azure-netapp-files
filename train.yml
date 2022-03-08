@@ -6,6 +6,12 @@ code:
 command: |
   mkdir /data
   mount -t nfs -o rw,hard,rsize=65536,wsize=65536,vers=3,tcp 10.0.2.4:/vol1 /data
+  df -h
   python train.py
+  # Run fio on NFS share
   cd /data
+  fio --name=4krandomreads --rw=randread --direct=1 --ioengine=libaio --bs=4k --numjobs=4 --iodepth=128 --size=1G --runtime=60 --group_reporting
+  # Run fio on local disk
+  mkdir /test
+  cd /test
   fio --name=4krandomreads --rw=randread --direct=1 --ioengine=libaio --bs=4k --numjobs=4 --iodepth=128 --size=1G --runtime=60 --group_reporting
