@@ -67,7 +67,7 @@ Provision Azure NetApp Files and create a single volume:
 ```console
 az netappfiles account create --name $anf_name
 az netappfiles pool create --account-name $anf_name --name $pool_name --size 4 --service-level premium
-az netappfiles volume create --account-name $anf_name --pool-name $pool_name --name vol1 --service-level premium --usage-threshold 4096 --file-path "vol1" --vnet $vnet_name --subnet anf --protocol-types NFSv3 --allowed-clients $vnet_aml_subnet --rule-index 1
+az netappfiles volume create --account-name $anf_name --pool-name $pool_name --name vol1 --service-level premium --usage-threshold 4096 --file-path "vol1" --vnet $vnet_name --subnet anf --protocol-types NFSv3 --allowed-clients $vnet_aml_subnet --rule-index 1 --unix-read-write true
 ```
 
 ## Resource creation in Azure Machine Learning
