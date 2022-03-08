@@ -173,3 +173,13 @@ Run status group 0 (all jobs):
 ```
 
 Once all of this is working, you can replace [`code/train.py`](code/train.py) with something more meaningful.
+
+## Further work
+
+To really set this up in a performant way, one might consider:
+
+* Switching to NFSv4.1
+* Use multiple volumes
+* Use higher tiers of Azure NetApp Files
+
+This repo should just show how to get started instead of giving concrete examples for optimizing I/O performance.
