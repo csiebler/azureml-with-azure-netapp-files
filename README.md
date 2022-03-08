@@ -1,16 +1,22 @@
 # azureml-with-azure-netapp-files
 
-A repo that shows how to use Azure Machine Learning with Azure NetApp Files
-
+A repo that shows how to use Azure Machine Learning with Azure NetApp Files.
 
 # Instructions
 
 ## Install extensions
 
+First, install the CLI extensions and make sure we can provision Azure NetApp Files:
+
 ```console
 az extension remove -n azure-cli-ml
 az extension add --name ml
+az provider register --namespace Microsoft.NetApp --wait
 ```
+
+## Configuration
+
+Set variables on console session with our configuration:
 
 ```console
 # Resource group name
@@ -31,7 +37,7 @@ anf_name=anf
 pool_name=pool1
 ```
 
-## Initial setup
+## Provisioning of services
 
 Create a new Azure Machine Learning Workspace, VNET and Azure NetApp Files.
 
@@ -59,7 +65,6 @@ az ml workspace create --name $workspace_name
 Provision Azure NetApp Files and create a single volume:
 
 ```console
-az provider register --namespace Microsoft.NetApp --wait
 az netappfiles account create --name $anf_name
 az netappfiles pool create --account-name $anf_name --name $pool_name --size 4 --service-level premium
 az netappfiles volume create --account-name $anf_name --pool-name $pool_name --name vol1 --service-level premium --usage-threshold 4096 --file-path "vol1" --vnet $vnet_name --subnet anf --protocol-types NFSv3 --allowed-clients $vnet_aml_subnet --rule-index 1
